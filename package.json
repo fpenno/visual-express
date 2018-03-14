@@ -1,6 +1,6 @@
 {
   "name": "visual-express",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Visual UI for Express",
   "main": "vxpress.js",
   "scripts": {
@@ -19,5 +19,16 @@
     "type": "git",
     "url": "https://github.com/fpenno/visual-express.git"
   },
-  "keywords": ["visual", "express", "listener", "router", "handler", "api", "rest", "restful", "aws", "lambda"]
+  "keywords": [
+    "visual",
+    "express",
+    "listener",
+    "router",
+    "handler",
+    "api",
+    "rest",
+    "restful",
+    "aws",
+    "lambda"
+  ]
 }
