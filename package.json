@@ -7,12 +7,17 @@
     "start": "node vxpress-start.js"
   },
   "author": "Felipe Penno | https://www.piscestek.com.au",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "aws-serverless-express": "^3.1.3",
     "compression": "1.7.2",
     "express": "4.16.2",
     "js-beautify": "1.7.5",
     "json-beautify": "1.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fpenno/visual-express.git"
+  },
+  "keywords": ["visual", "express", "listener", "router", "handler", "api", "rest", "restful", "aws", "lambda"]
 }
