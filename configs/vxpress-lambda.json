@@ -1,0 +1,76 @@
+{
+  "info": [
+    {
+      "version": "0.0.1",
+      "app": "vxpress-lambda",
+      "mode": "lambda"
+    }
+  ],
+  "paths": [
+    {
+      "cwd": "/Users/felipe/Documents/_personal/projects/AWS/piscestek/github/piscestek/visual-express",
+      "prefix": "",
+      "handlers": "/handlers",
+      "fsModeFile": 644,
+      "fsModeDir": 755
+    }
+  ],
+  "routes": [
+    {
+      "execOrder": 7,
+      "active": true,
+      "method": "use",
+      "path": null,
+      "handler": "vxLambdaContext",
+      "description": "Provides context when running this server in AWS Lambda."
+    },
+    {
+      "execOrder": 10,
+      "active": true,
+      "method": "use",
+      "path": null,
+      "handler": "vxErrorHandler",
+      "description": "Handles every error exception of the application."
+    },
+    {
+      "execOrder": 15,
+      "active": true,
+      "method": "get",
+      "path": "/health",
+      "handler": "vxAwsHealth",
+      "description": "Amazon Web Services monitoring."
+    },
+    {
+      "execOrder": 17,
+      "active": true,
+      "method": "post",
+      "path": "/loopback",
+      "handler": "vxLoopback",
+      "description": "Test only. Respond the body of the request back to the client."
+    },
+    {
+      "execOrder": 20,
+      "active": true,
+      "method": "post",
+      "path": "/crud",
+      "handler": "vxAppCrud",
+      "description": "CRUD for all applications."
+    },
+    {
+      "execOrder": 23,
+      "active": true,
+      "method": "get",
+      "path": "/info",
+      "handler": "vxAppInfo",
+      "description": "Overall application information."
+    },
+    {
+      "execOrder": 25,
+      "active": true,
+      "method": "use",
+      "path": "*",
+      "handler": "vxNotFound",
+      "description": "Returns 404 if no route matching was found."
+    }
+  ]
+}

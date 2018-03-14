@@ -1,0 +1,136 @@
+{
+  "info": [
+    {
+      "version": "0.0.1",
+      "app": "vxpress",
+      "mode": "single"
+    }
+  ],
+  "paths": [
+    {
+      "cwd": "/var/local/vx",
+      "prefix": "",
+      "handlers": "/handlers",
+      "fsModeFile": 644,
+      "fsModeDir": 755
+    }
+  ],
+  "listeners": [
+    {
+      "active": true,
+      "protocol": "http",
+      "port": 8080,
+      "corsProtocols": ["get", "post", "options"],
+      "description": "Forwarded from load balancer, port 80."
+    },
+    {
+      "active": true,
+      "protocol": "https",
+      "port": 4433,
+      "corsDomains": "",
+      "corsProtocols": ["get", "post", "options"],
+      "description": "Forwarded from load balancer, port 443. Not required with AWS certificates.",
+      "certificatePath": "/tls/certificate.pem",
+      "certificatekey": "abc123",
+      "certificatePassPhrase": "xyz*987"
+    }
+  ],
+  "routes": [
+    {
+      "execOrder": 1,
+      "active": false,
+      "method": "use",
+      "handler": "vxCompression",
+      "description": "Enable compression of request/response contents.",
+      "path": null
+    },
+    {
+      "execOrder": 2,
+      "active": true,
+      "method": "use",
+      "path": "*",
+      "handler": "vxCors",
+      "description": "Allow a list of domains for CORS."
+    },
+    {
+      "execOrder": 3,
+      "active": true,
+      "method": "options",
+      "path": "*",
+      "handler": "vxCorsOptions",
+      "description": "Options handshake for CORS."
+    },
+    {
+      "execOrder": 5,
+      "active": true,
+      "method": "post",
+      "path": "*",
+      "handler": "vxBodyParser",
+      "description": "Get JSON body from all POST requests. Only POST requests can submit body."
+    },
+    {
+      "execOrder": 6,
+      "active": false,
+      "method": "post",
+      "path": "*",
+      "handler": "vxBodyParserEncode",
+      "description": "Encode for body parsing."
+    },
+    {
+      "execOrder": 7,
+      "active": false,
+      "method": "use",
+      "path": null,
+      "handler": "vxLambdaContext",
+      "description": "Provides context when running this server in AWS Lambda."
+    },
+    {
+      "execOrder": 10,
+      "active": true,
+      "method": "use",
+      "path": null,
+      "handler": "vxErrorHandler",
+      "description": "Handles every error exception of the application."
+    },
+    {
+      "execOrder": 15,
+      "active": true,
+      "method": "get",
+      "path": "/health",
+      "handler": "vxAwsHealth",
+      "description": "Amazon Web Services monitoring."
+    },
+    {
+      "execOrder": 17,
+      "active": true,
+      "method": "post",
+      "path": "/loopback",
+      "handler": "vxLoopback",
+      "description": "Test only. Respond the body of the request back to the client."
+    },
+    {
+      "execOrder": 20,
+      "active": true,
+      "method": "post",
+      "path": "/crud",
+      "handler": "vxAppCrud",
+      "description": "CRUD for all applications."
+    },
+    {
+      "execOrder": 23,
+      "active": true,
+      "method": "get",
+      "path": "/info",
+      "handler": "vxAppInfo",
+      "description": "Overall application information."
+    },
+    {
+      "execOrder": 25,
+      "active": true,
+      "method": "use",
+      "path": "*",
+      "handler": "vxNotFound",
+      "description": "Returns 404 if no route matching was found."
+    }
+  ]
+}

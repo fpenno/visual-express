@@ -1,0 +1,332 @@
+{
+  "locale": "en",
+  "title": "Visual Express Definitions",
+  "completedHtml": {
+    "en": "<h1>Definitions Submitted</h1>"
+  },
+  "loadingHtml": {
+    "en": "<h1>Loading Definitions</h1>"
+  },
+  "pages": [
+    {
+      "name": "info",
+      "elements": [
+        {
+          "type": "paneldynamic",
+          "name": "info",
+          "title": "Application Information",
+          "description": "This is used in the Visual Express server to render the entire application.",
+          "templateElements": [
+            {
+              "type": "text",
+              "name": "version",
+              "title": "Version",
+              "description": {
+                "en": "Should be the same of the server for compatibility reasons (major.minor.patch)"
+              },
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "app",
+              "title": "Application Name",
+              "description": "All in lowercase or camelCase",
+              "isRequired": true
+            },
+            {
+              "type": "radiogroup",
+              "name": "mode",
+              "title": "Execution Mode",
+              "description": {
+                "en": "Select the correct option according to the environment where the server will run"
+              },
+              "isRequired": true,
+              "choices": [
+                {
+                  "value": "lambda",
+                  "text": "Lambda for AWS"
+                },
+                {
+                  "value": "single",
+                  "text": "Single Process"
+                },
+                {
+                  "value": "cluster",
+                  "text": "Cluster (Multiple CPUs)"
+                }
+              ]
+            }
+          ],
+          "allowAddPanel": false,
+          "allowRemovePanel": false,
+          "panelCount": 1,
+          "minPanelCount": 1,
+          "maxPanelCount": 1
+        }
+      ],
+      "title": "Information"
+    },
+    {
+      "name": "paths",
+      "elements": [
+        {
+          "type": "paneldynamic",
+          "name": "paths",
+          "title": "Paths",
+          "templateElements": [
+            {
+              "type": "text",
+              "name": "cwd",
+              "title": "Application Root Directory",
+              "description": {
+                "default": "Full filesystem path is auto-assigned during runtime if blank",
+                "en": "Full filesystem path is auto-assigned during runtime"
+              },
+              "readOnly": true
+            },
+            {
+              "type": "text",
+              "name": "prefix",
+              "title": {
+                "en": "Path Prefix"
+              },
+              "description": {
+                "en": "Adds a top level on your routes. e.g.: /top makes a route to be /top/anyroute. Must start with /"
+              }
+            },
+            {
+              "type": "text",
+              "name": "handlers",
+              "title": "Routes Handlers",
+              "description": "Handlers for application routes. Must start with /",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "fsModeFile",
+              "title": "Files Security Mode",
+              "description": "Used for new files. See *nix command chmod for help",
+              "defaultValue": 644,
+              "isRequired": true,
+              "inputType": "number"
+            },
+            {
+              "type": "text",
+              "name": "fsModeDir",
+              "title": "Directories Security Mode",
+              "description": "Used for new directories. See *nix command chmod for help",
+              "defaultValue": 755,
+              "isRequired": true,
+              "inputType": "number"
+            }
+          ],
+          "allowAddPanel": false,
+          "allowRemovePanel": false,
+          "panelCount": 1,
+          "minPanelCount": 1
+        }
+      ],
+      "title": "Paths"
+    },
+    {
+      "name": "listeners",
+      "elements": [
+        {
+          "type": "paneldynamic",
+          "name": "listeners",
+          "title": "Listeners",
+          "templateElements": [
+            {
+              "type": "boolean",
+              "name": "active",
+              "title": "Listener is Active",
+              "defaultValue": "true"
+            },
+            {
+              "type": "radiogroup",
+              "name": "protocol",
+              "title": "Protocol Type",
+              "description": "Choose a protocol to associate with this listener",
+              "isRequired": true,
+              "choices": [
+                "http",
+                "https"
+              ]
+            },
+            {
+              "type": "text",
+              "name": "port",
+              "title": "Listening Port",
+              "description": "Port which this listener will handle requests",
+              "isRequired": true,
+              "inputType": "number"
+            },
+            {
+              "type": "matrixdynamic",
+              "name": "corsDomains",
+              "title": "CORS (Cross-Origin Resource Sharing): Domains",
+              "description": "List of domains that can interact with it",
+              "columns": [
+                {
+                  "name": "domain",
+                  "title": "Domain Name",
+                  "cellType": "text"
+                }
+              ],
+              "cellType": "text",
+              "rowCount": 0,
+              "addRowText": "Add Domain",
+              "removeRowText": "Remove Domain"
+            },
+            {
+              "type": "checkbox",
+              "name": "corsProtocols",
+              "title": "CORS (Cross-Origin Resource Sharing): Protocols",
+              "description": {
+                "en": "Methods that can interact with it"
+              },
+              "choices": [
+                "get",
+                "post",
+                "put",
+                "delete",
+                "options"
+              ]
+            },
+            {
+              "type": "comment",
+              "name": "description",
+              "title": "Description",
+              "description": "Details to better understand the reasons behind this listener",
+              "isRequired": true,
+              "rows": 5
+            }
+          ],
+          "panelAddText": "Add",
+          "panelRemoveText": "Remove"
+        }
+      ],
+      "title": "Listeners"
+    },
+    {
+      "name": "routes",
+      "elements": [
+        {
+          "type": "paneldynamic",
+          "name": "routes",
+          "title": {
+            "en": "Routes"
+          },
+          "templateElements": [
+            {
+              "type": "boolean",
+              "name": "active",
+              "title": {
+                "en": "Route is Active"
+              },
+              "defaultValue": "true"
+            },
+            {
+              "type": "text",
+              "name": "execOrder",
+              "title": {
+                "en": "Route Execution Order"
+              },
+              "description": {
+                "en": "Execution flow follows this sequence"
+              },
+              "defaultValue": "1",
+              "isRequired": true,
+              "inputType": "number"
+            },
+            {
+              "type": "text",
+              "name": "path",
+              "title": {
+                "en": "Route Path"
+              },
+              "description": {
+                "en": "Path for requests. Leave it empty for middleware handlers, add an asterisk (*) for catch all, or e.g.: /customer/:id"
+              }
+            },
+            {
+              "type": "radiogroup",
+              "name": "method",
+              "title": {
+                "en": "Method"
+              },
+              "description": {
+                "en": "Which request method is related to this route"
+              },
+              "isRequired": true,
+              "choices": [
+                "use",
+                "options",
+                "get",
+                "post",
+                "put",
+                "delete"
+              ]
+            },
+            {
+              "type": "text",
+              "name": "static",
+              "title": {
+                "en": "Static Pages Path"
+              },
+              "description": {
+                "en": "Add the filesystem path of where the static pages are stored"
+              }
+            },
+            {
+              "type": "dropdown",
+              "name": "handler",
+              "title": {
+                "en": "Handler Name"
+              },
+              "description": {
+                "en": "Name of the handler file with the execution logic"
+              },
+              "isRequired": true,
+              "choicesOrder": "asc",
+              "choicesByUrl": {
+                "url": "http://localhost:8080/info",
+                "path": "handlers"
+              },
+              "storeOthersAsComment": false
+            },
+            {
+              "type": "comment",
+              "name": "description",
+              "title": {
+                "en": "Description"
+              },
+              "description": {
+                "en": "Details about this route"
+              },
+              "isRequired": true,
+              "rows": 5
+            }
+          ],
+          "panelAddText": {
+            "en": "Add"
+          },
+          "panelRemoveText": {
+            "en": "Remove"
+          }
+        }
+      ],
+      "title": {
+        "en": "Routes"
+      }
+    }
+  ],
+  "sendResultOnPageNext": true,
+  "showPageTitles": false,
+  "showQuestionNumbers": "off",
+  "showProgressBar": "top",
+  "storeOthersAsComment": false,
+  "completeText": {
+    "en": "Save Definitions"
+  }
+}
