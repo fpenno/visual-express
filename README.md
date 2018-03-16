@@ -1,6 +1,10 @@
 # Visual Express
 
-VX is a dynamic layer for the well-known Express, where listeners, routes and handlers are created from a configuration file, which can be modified using an intuitive user interface.
+[![vulnerabilities](https://snyk.io/test/npm/visual-express/badge.svg)](https://snyk.io/test/npm/visual-express)
+
+VX is a dynamic layer for the well-known Express, where listeners, routes and handlers are created from a configuration file, which can be modified using an intuitive [user interface](https://www.npmjs.com/package/visual-express-ui).
+
+See how to install/execute [visual-express-ui](https://www.npmjs.com/package/visual-express-ui#installation)
 
 ### Environments
 
