@@ -27,11 +27,13 @@
 
 'use strict';
 var rServer = require('./lib/vx-server');
+var rLogger = require('./lib/vx-logger');
 
 /**
  * start server in single or cluster mode.
  * as lambda its function needs to map vxpress.start.
  */
 exports.start = (lambdaEvent = null, lambdaContext = null) => {
+  rLogger.info('vxpress', 'exports.start');
   rServer.init(lambdaEvent, lambdaContext);
 };

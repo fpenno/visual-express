@@ -12,7 +12,9 @@
       "env": {
         //"vxInfoApp": "vxpress-lambda"
         //"vxPathsPrefix": "/lambda"
-      }
+      },
+      "console": "internalConsole",
+      "outputCapture": "std"
     }
   ]
 }
