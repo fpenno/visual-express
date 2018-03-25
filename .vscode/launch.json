@@ -10,8 +10,8 @@
       "name": "VisualExpress",
       "program": "${workspaceFolder}/vxpress-start.js",
       "env": {
-        //"vxInfoApp": "vxpress-lambda"
-        //"vxPathsPrefix": "/lambda"
+        // "vxInfoApp": "vxpress-lambda",
+        // "vxPathsPrefix": "/lambda"
       },
       "console": "internalConsole",
       "outputCapture": "std"

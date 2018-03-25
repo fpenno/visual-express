@@ -1,13 +1,33 @@
 var rFS = require('fs');
 var rBeautyJSON = require('json-beautify');
 var rVxApps = require('../lib/vx-apps');
-var rConfigs = require('../lib/vx-configs').get();
+//
+//var rConfigs = require('../lib/vx-configs').get();
+//let configs = rConfigs.load(log, env.vxInfoApp);
+var configs = {};
+var log = {};
+
+/**
+ * set configurations to be used in this module:
+ * @param {*} objConfigs
+ */
+exports.setConfigs = function setConfigs(objConfigs) {
+  configs = objConfigs;
+};
+
+/**
+ * set log object for logging in this module:
+ * @param {*} objLog
+ */
+exports.setLog = function setLog(objLog) {
+  log = objLog;
+};
 
 /**
  * CRUD operations according to action and target.
  * Create, Read, Update and Delete.
- * @param {*} req 
- * @param {*} res 
+ * @param {*} req
+ * @param {*} res
  */
 exports.vxAppCrud = function vxAppCrud(req, res) {
   // set body contents:
@@ -19,17 +39,17 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
   let resJson = {};
 
   // set default error:
-  let defaultError = `[err] vxAppCrud: no matching action/target: ${reqAction}/${reqTarget}`;
+  let defaultError = `vxAppCrud: no matching action/target: ${reqAction}/${reqTarget}`;
 
   // -------------------------
   if (reqAction == 'create') {
     switch (reqTarget) {
       case 'application':
         // create new app:
-        resJson = rVxApps.appCreate('template', rConfigs.paths);
+        resJson = rVxApps.appCreate('template', configs.paths);
         break;
       default:
-        console.error(defaultError);
+        log.error(__filename, defaultError);
     }
   }
 
@@ -43,7 +63,7 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
         resJson = getConfigsEditor();
         break;
       default:
-        console.error(defaultError);
+        log.error(__filename, defaultError);
     }
   }
 
@@ -58,10 +78,10 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
         break;
       case 'apps':
         // update app configs:
-        resJson = rVxApps.appUpdate(reqAppName, rConfigs.paths, payload.data);
+        resJson = rVxApps.appUpdate(reqAppName, configs.paths, payload.data);
         break;
       default:
-        console.error(defaultError);
+        log.error(__filename, defaultError);
     }
   }
 
@@ -71,7 +91,7 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
       case 'todo':
         break;
       default:
-        console.error(defaultError);
+        log.error(__filename, defaultError);
     }
   }
 
@@ -81,7 +101,7 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
 
 /**
  * get application configurations and send to editor
- * @param {*} appName 
+ * @param {*} appName
  */
 function getConfigs(appName) {
   // load as module:
@@ -90,19 +110,19 @@ function getConfigs(appName) {
   try {
     configSource = require(`../configs/${appName}.json`);
   } catch (error) {
-    console.error('getConfigs:', error.code, error.message);
+    log.error(__filename, 'getConfigs', error.code, error.message);
   }
   return configSource;
 }
 
 /**
  * set application configurations from the editor
- * @param {*} appName 
- * @param {*} jsonData 
+ * @param {*} appName
+ * @param {*} jsonData
  */
 function setConfigs(appName, jsonData) {
   // set config file path:
-  let configTarget = `${rConfigs.paths.cwd}/configs/${appName}.json`;
+  let configTarget = `${configs.paths.cwd}/configs/${appName}.json`;
   // beautify file contents:
   let fileContents = rBeautyJSON(jsonData, null, 2, 1);
   // update contents:
@@ -130,11 +150,11 @@ function getConfigsEditor() {
 
 /**
  * updates parameters used to render the configuration UI
- * @param {*} jsonData 
+ * @param {*} jsonData
  */
 function setConfigsEditor(jsonData) {
   // set config file path:
-  let configTarget = `${rConfigs.paths.cwd}/configs/vxpress-editor.json`;
+  let configTarget = `${configs.paths.cwd}/configs/vxpress-editor.json`;
   // beautify file contents:
   let fileContents = rBeautyJSON(jsonData, null, 2, 1);
   // update contents:

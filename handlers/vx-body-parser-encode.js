@@ -1,4 +1,4 @@
-var rBodyParserEncode = require("body-parser");
+var rBodyParserEncode = require('body-parser');
 
 /**
  * encode parsed body

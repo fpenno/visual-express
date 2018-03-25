@@ -27,13 +27,37 @@
 
 'use strict';
 var rServer = require('./lib/vx-server');
+//
 var rLogger = require('./lib/vx-logger');
+var log = new rLogger('silly', 'vx');
+//
+var rEnvironment = require('./lib/vx-env');
+var rDefinitions = require('./lib/vx-definitions');
+//
 
 /**
  * start server in single or cluster mode.
  * as lambda its function needs to map vxpress.start.
  */
 exports.start = (lambdaEvent = null, lambdaContext = null) => {
-  rLogger.info('vxpress', 'exports.start');
-  rServer.init(lambdaEvent, lambdaContext);
+  log.verbose(__filename, 'exports.start');
+
+  // set environment:
+  let env = new rEnvironment(log, lambdaEvent);
+  let envConfigs = env.set();
+
+  // compile definitions:
+  let envDefinitions = rDefinitions.compile(log, envConfigs);
+
+  // initialize server:
+  let srv = new rServer(log, {
+    configs: envConfigs,
+    definitions: envDefinitions,
+    lambdaEvent: lambdaEvent,
+    lambdaContext: lambdaContext
+  });
+  srv.init();
+
+  //
+  log.debug(__filename, 'running...');
 };

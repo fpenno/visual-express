@@ -1,4 +1,4 @@
-var rCompression = require("compression");
+var rCompression = require('compression');
 
 /**
  * enables compression of request/response contents

@@ -1,4 +1,4 @@
-var rBodyParser = require("body-parser");
+var rBodyParser = require('body-parser');
 
 /**
  * get message body from post/put requests

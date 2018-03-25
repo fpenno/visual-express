@@ -1,4 +1,4 @@
-var rConfigs = require('../lib/vx-configs').get();
+// var rConfigs = require('../lib/vx-configs').get();
 
 /**
  * get overall application information
@@ -10,9 +10,9 @@ exports.vxAppInfo = function vxAppInfo(req, res) {
   let list = [];
 
   // get list of handlers from configuration:
-  rConfigs.routes.map(item => {
-    list.push(item.handler);
-  });
+  // rConfigs.routes.map(item => {
+  //   list.push(item.handler);
+  // });
 
   let handlers = {
     handlers: list
