@@ -1,11 +1,10 @@
 var rFS = require('fs');
 var rBeautyJSON = require('json-beautify');
-var rVxApps = require('../lib/vx-apps');
+var rVxDb = require('../lib/vx-database');
 //
-//var rConfigs = require('../lib/vx-configs').get();
-//let configs = rConfigs.load(log, env.vxInfoApp);
-var configs = {};
 var log = {};
+var configs = {};
+var db = new rVxDb(log, configs);
 
 /**
  * set configurations to be used in this module:
@@ -31,22 +30,22 @@ exports.setLog = function setLog(objLog) {
  */
 exports.vxAppCrud = function vxAppCrud(req, res) {
   // set body contents:
-  let payload = req.body;
-  let reqAction = payload.action;
-  let reqTarget = payload.target;
-  let reqAppName = payload.appName;
-  let reqData = payload.data;
+  let body = req.body;
+  let action = body.action;
+  let target = body.target;
+  let appName = body.appName;
+  let data = body.data;
   let resJson = {};
 
   // set default error:
-  let defaultError = `vxAppCrud: no matching action/target: ${reqAction}/${reqTarget}`;
+  let defaultError = `vxAppCrud: no matching action/target: ${action}/${target}`;
 
   // -------------------------
-  if (reqAction == 'create') {
-    switch (reqTarget) {
+  if (action == 'create') {
+    switch (target) {
       case 'application':
         // create new app:
-        resJson = rVxApps.appCreate('template', configs.paths);
+        resJson = db.create('template');
         break;
       default:
         log.error(__filename, defaultError);
@@ -54,13 +53,13 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
   }
 
   // -------------------------
-  if (reqAction == 'read') {
-    switch (reqTarget) {
+  if (action == 'read') {
+    switch (target) {
       case 'configs':
-        resJson = getConfigs(reqAppName);
+        resJson = db.getConfigs(appName);
         break;
       case 'configs-editor':
-        resJson = getConfigsEditor();
+        resJson = db.getConfigsEditor();
         break;
       default:
         log.error(__filename, defaultError);
@@ -68,17 +67,17 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
   }
 
   // -------------------------
-  if (reqAction == 'update') {
-    switch (reqTarget) {
+  if (action == 'update') {
+    switch (target) {
       case 'configs':
-        resJson = setConfigs(reqAppName, reqData);
+        resJson = db.setConfigs(appName, data);
         break;
       case 'configs-editor':
-        resJson = setConfigsEditor(reqData);
+        resJson = db.setConfigsEditor(data);
         break;
       case 'apps':
         // update app configs:
-        resJson = rVxApps.appUpdate(reqAppName, configs.paths, payload.data);
+        resJson = db.update(appName, body.data);
         break;
       default:
         log.error(__filename, defaultError);
@@ -86,8 +85,8 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
   }
 
   // -------------------------
-  if (reqAction == 'delete') {
-    switch (reqTarget) {
+  if (action == 'delete') {
+    switch (target) {
       case 'todo':
         break;
       default:
@@ -98,75 +97,3 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
   //
   res.json(resJson);
 };
-
-/**
- * get application configurations and send to editor
- * @param {*} appName
- */
-function getConfigs(appName) {
-  // load as module:
-  let configSource = {};
-  // try to read configurations:
-  try {
-    configSource = require(`../configs/${appName}.json`);
-  } catch (error) {
-    log.error(__filename, 'getConfigs', error.code, error.message);
-  }
-  return configSource;
-}
-
-/**
- * set application configurations from the editor
- * @param {*} appName
- * @param {*} jsonData
- */
-function setConfigs(appName, jsonData) {
-  // set config file path:
-  let configTarget = `${configs.paths.cwd}/configs/${appName}.json`;
-  // beautify file contents:
-  let fileContents = rBeautyJSON(jsonData, null, 2, 1);
-  // update contents:
-  rFS.writeFileSync(configTarget, fileContents);
-
-  // // file modes must be converted from base 10 to 8:
-  // let fsModeFile = parseInt(rConfigs.paths.fsModeFile, 8);
-  // // set file mode:
-  // rFS.chmodSync(configTarget, fsModeFile);
-
-  // all good:
-  return {
-    status: 200
-  };
-}
-
-/**
- * this json is rendered by surveyjs builder running in the UI
- */
-function getConfigsEditor() {
-  // load as module:
-  let rConfigsEditor = require(`../configs/vxpress-editor.json`);
-  return rConfigsEditor;
-}
-
-/**
- * updates parameters used to render the configuration UI
- * @param {*} jsonData
- */
-function setConfigsEditor(jsonData) {
-  // set config file path:
-  let configTarget = `${configs.paths.cwd}/configs/vxpress-editor.json`;
-  // beautify file contents:
-  let fileContents = rBeautyJSON(jsonData, null, 2, 1);
-  // update contents:
-  rFS.writeFileSync(configTarget, fileContents);
-
-  // // file modes must be converted from base 10 to 8:
-  // let fsModeFile = parseInt(rConfigs.paths.fsModeFile, 8);
-  // // set file mode:
-  // rFS.chmodSync(configTarget, fsModeFile);
-
-  // all good:
-  return {
-    status: 200
-  };
-}
