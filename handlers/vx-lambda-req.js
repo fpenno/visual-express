@@ -1,7 +1,8 @@
 /**
  * assign lambda event and context in req corresponding parameters:
  * @param {*} lambdaEvent
+ * @param {*} lambdaContext
  */
-exports.assign = function assign(lambdaEvent, lambdaContext) {
+exports.vxLambdaReq = function vxLambdaReq(lambdaEvent, lambdaContext) {
   // TODO...
 };

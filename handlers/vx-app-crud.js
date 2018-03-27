@@ -1,26 +1,4 @@
-var rFS = require('fs');
-var rBeautyJSON = require('json-beautify');
-var rVxDb = require('../lib/vx-database');
-//
-var log = {};
-var configs = {};
-var db = new rVxDb(log, configs);
-
-/**
- * set configurations to be used in this module:
- * @param {*} objConfigs
- */
-exports.setConfigs = function setConfigs(objConfigs) {
-  configs = objConfigs;
-};
-
-/**
- * set log object for logging in this module:
- * @param {*} objLog
- */
-exports.setLog = function setLog(objLog) {
-  log = objLog;
-};
+var rVxDatabase = require('../lib/vx-database');
 
 /**
  * CRUD operations according to action and target.
@@ -37,6 +15,10 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
   let data = body.data;
   let resJson = {};
 
+  // set database:
+  let db = new rVxDatabase(req.vxLog, req.vxConfigs);
+  // log action:
+  req.vxLog.info(__filename, 'action', action);
   // set default error:
   let defaultError = `vxAppCrud: no matching action/target: ${action}/${target}`;
 
@@ -45,10 +27,10 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
     switch (target) {
       case 'application':
         // create new app:
-        resJson = db.create('template');
+        resJson = db.create(appName);
         break;
       default:
-        log.error(__filename, defaultError);
+        req.vxLog.error(__filename, defaultError);
     }
   }
 
@@ -62,7 +44,7 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
         resJson = db.getConfigsEditor();
         break;
       default:
-        log.error(__filename, defaultError);
+        req.vxLog.error(__filename, defaultError);
     }
   }
 
@@ -80,7 +62,7 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
         resJson = db.update(appName, body.data);
         break;
       default:
-        log.error(__filename, defaultError);
+        req.vxLog.error(__filename, defaultError);
     }
   }
 
@@ -90,7 +72,7 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
       case 'todo':
         break;
       default:
-        log.error(__filename, defaultError);
+        req.vxLog.error(__filename, defaultError);
     }
   }
 
