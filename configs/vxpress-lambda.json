@@ -3,7 +3,8 @@
     {
       "version": "0.0.1",
       "app": "vxpress-lambda",
-      "mode": "lambda"
+      "mode": "lambda",
+      "logs": "silly"
     }
   ],
   "paths": [

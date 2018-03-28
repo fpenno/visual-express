@@ -37,11 +37,17 @@ var rDefinitions = require('./lib/vx-definitions');
  */
 exports.start = (lambdaEvent = null, lambdaContext = null) => {
   let log = new rLogger('silly', 'vx');
-  log.verbose(__filename, 'exports.start');
+  log.verbose(__filename, 'log level', log.level);
+  log.verbose(__filename, 'start');
 
   // sync environment variables and config file:
   let env = new rEnvironment(log, lambdaEvent);
   let configs = env.sync();
+
+  // print server version:
+  log.info(__filename, 'version', configs.info.version);
+  // reset log level:
+  log.level = configs.info.logs;
 
   // compile definitions:
   let def = new rDefinitions(log, configs);
