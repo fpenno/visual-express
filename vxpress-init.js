@@ -15,10 +15,21 @@ rFS.mkdir(rPath.join(process.cwd(), configs), '755', error => {
     console.log('> delete the following directory and run the script again:');
     console.log('mkdir', error.code, error.path);
   } else {
-    // copy default config file to cwd (custom configs):
+    // copy default config file to cwd (single/cluster):
     rFS.copyFile(
       rPath.join(__dirname, configs, 'vxpress.json'),
       rPath.join(process.cwd(), configs, 'vxpress.json'),
+      error => {
+        if (error) {
+          console.log('> delete the following file and run the script again:');
+          console.log('copyFile', error.code, error.path);
+        }
+      }
+    );
+    // copy default config file to cwd (lambda):
+    rFS.copyFile(
+      rPath.join(__dirname, configs, 'vxpress-lambda.json'),
+      rPath.join(process.cwd(), configs, 'vxpress-lambda.json'),
       error => {
         if (error) {
           console.log('> delete the following file and run the script again:');

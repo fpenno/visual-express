@@ -9,8 +9,8 @@
   ],
   "paths": [
     {
-      "cwd": "/Users/felipe/Documents/_personal/projects/AWS/piscestek/github/piscestek/visual-express",
-      "appRoot": "/var/local/app",
+      "cwd": "/var/local/node_modules/vx",
+      "appRoot": "/var/task",
       "prefix": "",
       "handlers": "/handlers",
       "fsModeFile": 644,
