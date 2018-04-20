@@ -31,6 +31,18 @@ var rLogger = require('./lib/vx-logger');
 var rEnvironment = require('./lib/vx-environment');
 var rDefinitions = require('./lib/vx-definitions');
 
+// set root application path (optional):
+var rootPath = __dirname;
+exports.setRootPath = path => {
+  rootPath = path;
+};
+
+// set application name (optional):
+// must be the same of the configuration file (case-sensitive):
+exports.setAppName = appName => {
+  process.env.vxInfoApp = appName;
+};
+
 /**
  * start server in single or cluster mode.
  * as lambda its function needs to map vxpress.start.
@@ -41,7 +53,8 @@ exports.start = (lambdaEvent = null, lambdaContext = null) => {
   log.verbose(__filename, 'start');
 
   // sync environment variables and config file:
-  let env = new rEnvironment(log, lambdaEvent);
+  let env = new rEnvironment(log, rootPath, lambdaEvent);
+  // env.rootPath = rootPath;
   let configs = env.sync();
 
   // print server version:
