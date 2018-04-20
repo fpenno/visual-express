@@ -9,7 +9,8 @@
   ],
   "paths": [
     {
-      "cwd": "/var/local/vx",
+      "cwd": "/var/local/node_modules/vx",
+      "appRoot": "/var/local/app",
       "prefix": "",
       "handlers": "/handlers",
       "fsModeFile": 644,

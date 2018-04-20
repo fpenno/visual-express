@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 /**
  * start server in single or cluster mode.
@@ -6,4 +6,4 @@
  * and then you can use the UI to change every other configuration.
  * when running in lambda its function needs to map vxpress.start.
  */
-require("./vxpress").start();
+require('./vxpress').start();

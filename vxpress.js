@@ -31,14 +31,15 @@ var rLogger = require('./lib/vx-logger');
 var rEnvironment = require('./lib/vx-environment');
 var rDefinitions = require('./lib/vx-definitions');
 
-// set root application path (optional):
-var rootPath = __dirname;
-exports.setRootPath = path => {
-  rootPath = path;
+// set root application path (default):
+process.env.vxPathsAppRoot = __dirname;
+// reset root application path (optional):
+exports.setAppRoot = path => {
+  process.env.vxPathsAppRoot = path;
 };
 
 // set application name (optional):
-// must be the same of the configuration file (case-sensitive):
+// must be the same name of the configuration file (case-sensitive):
 exports.setAppName = appName => {
   process.env.vxInfoApp = appName;
 };
@@ -53,8 +54,7 @@ exports.start = (lambdaEvent = null, lambdaContext = null) => {
   log.verbose(__filename, 'start');
 
   // sync environment variables and config file:
-  let env = new rEnvironment(log, rootPath, lambdaEvent);
-  // env.rootPath = rootPath;
+  let env = new rEnvironment(log, lambdaEvent);
   let configs = env.sync();
 
   // print server version:
