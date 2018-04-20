@@ -52,7 +52,7 @@ Create a new server-config.js file with the following contents:
 
 ```javascript
 'use strict';
-var vx = require('../visual-express');
+var vx = require('visual-express');
 
 // required if using custom config files and handlers:
 vx.setAppRoot(__dirname);
