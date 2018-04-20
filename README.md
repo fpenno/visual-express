@@ -77,8 +77,6 @@ rServer.start();
 
 Initialize the directories for custom configurations and handlers:
 
-And execute it:
-
 ```sh
 $ node node_modules/visual-express/vxpress-init.js
 ```
