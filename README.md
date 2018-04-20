@@ -2,7 +2,7 @@
 
 [![vulnerabilities](https://snyk.io/test/npm/visual-express/badge.svg)](https://snyk.io/test/npm/visual-express)
 
-VX is a dynamic layer for the well-known Express, where listeners, routes and handlers are created from a configuration file, which can be modified using an intuitive [user interface](https://www.npmjs.com/package/visual-express-ui).
+VX is a dynamic layer for the well-known [express](https://www.npmjs.com/package/express), where listeners, routes and handlers are created from a configuration file, which can be modified using an intuitive [user interface](https://www.npmjs.com/package/visual-express-ui).
 
 See how to install/execute [visual-express-ui](https://www.npmjs.com/package/visual-express-ui#installation)
 
@@ -15,9 +15,9 @@ With ease you can set your application to run in 3 different modes:
 
 ### Releases
 
-This is the first alpha release, although it's already simple, stable and reliable.
+This project is still an alpha release, although it's already simple, stable and reliable.
 Priorities for the next release are CORS enhancements, HTTPS implementation, and auto-reload of listeners and routes.
-If you are planning to run it as Lambda via API Gateway, this next release won't affect you.
+If you are planning to run it as a Lambda function via API Gateway, this next release won't affect you.
 
 ### Zero Downtime
 
@@ -48,22 +48,52 @@ $ npm init
 $ npm install visual-express visual-express-ui
 ```
 
-Create a new vx.js file with the following contents:
+Create a new server-config.js file with the following contents:
 
 ```javascript
-"use strict";
-require("visual-express").start();
+'use strict';
+var vx = require('../visual-express');
+
+// required if using custom config files and handlers:
+vx.setAppRoot(__dirname);
+
+// set an application name to get configs from:
+// can also be set via environment variable (vxInfoApp):
+vx.setAppName('vxpress');
+
+// ready to be started:
+exports.start = vx.start;
 ```
+
+Create another new server-start.js with the following contents:
+
+```javascript
+'use strict';
+var rServer = require('./server-config');
+
+// start server:
+rServer.start();
+```
+
+Initialize the directories for custom configurations and handlers:
 
 And execute it:
 
 ```sh
-$ node vx.js
+$ node node_modules/visual-express/vxpress-init.js
+```
+
+And then execute it:
+
+```sh
+$ node server-start.js
 ```
 
 ### Customize
 
-While a more complete documentation is being prepared and still you're willing to explore what's done so far, have a look inside *node_modules/visual-express/*, more specifically inside *handlers* and *configs* directories.
+New handlers are store inside */handlers*, and configurations inside */configs*.
+
+While a more complete documentation is being prepared and still you're willing to explore what's done so far, have a look inside *node_modules/visual-express/*, more specifically inside *handlers* directory for other examples.
 
 *vx-loopback* is a good handler to use as a base to build others. Create a copy, add your code, and that's it.
 Then map your new handler inside *configs/vxpress.json* and reload the app. You should see it listing on the console.
