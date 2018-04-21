@@ -52,17 +52,17 @@ Create a new server-config.js file with the following contents:
 
 ```javascript
 'use strict';
-var vx = require('visual-express');
+var rVx = require('visual-express');
 
 // required if using custom config files and handlers:
-vx.setAppRoot(__dirname);
+rVx.setAppRoot(__dirname);
 
 // set an application name to get configs from:
 // can also be set via environment variable (vxInfoApp):
-vx.setAppName('vxpress');
+rVx.setAppName('vxpress');
 
 // ready to be started:
-exports.start = vx.start;
+exports.start = rVx.start;
 ```
 
 Create another new server-start.js with the following contents:
