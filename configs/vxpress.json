@@ -17,6 +17,16 @@
       "fsModeDir": 755
     }
   ],
+  "aws": [
+    {
+      "s3": {
+        "active": false,
+        "region": "ap-southeast-2",
+        "s3bucket": "bucket-name",
+        "s3key": "object.key"
+      }
+    }
+  ],
   "listeners": [
     {
       "active": true,
