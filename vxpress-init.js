@@ -8,55 +8,84 @@ var rPath = require('path');
  * node node_modules/visual-express/vxpress-init.js
  */
 
+let logWarning = '> delete the following file/directory and run the script again:';
+
 // configs:
-let configs = 'configs';
-rFS.mkdir(rPath.join(process.cwd(), configs), '755', error => {
+let pathConfigs = 'configs';
+rFS.mkdir(rPath.join(process.cwd(), pathConfigs), '755', error => {
   if (error) {
-    console.log('> delete the following directory and run the script again:');
+    console.log(logWarning);
     console.log('mkdir', error.code, error.path);
   } else {
-    // copy default config file to cwd (single/cluster):
-    rFS.copyFile(
-      rPath.join(__dirname, configs, 'vxpress.json'),
-      rPath.join(process.cwd(), configs, 'vxpress.json'),
-      error => {
-        if (error) {
-          console.log('> delete the following file and run the script again:');
-          console.log('copyFile', error.code, error.path);
+    // default config files for single/cluster/lambda:
+    let files = ['vxpress.json', 'vxpress-lambda.json'];
+    files.map(item => {
+      rFS.copyFile(
+        rPath.join(__dirname, pathConfigs, item),
+        rPath.join(process.cwd(), pathConfigs, item),
+        error => {
+          if (error) {
+            console.log(logWarning);
+            console.log('copyFile', item, error.code, error.path);
+          }
         }
-      }
-    );
-    // copy default config file to cwd (lambda):
-    rFS.copyFile(
-      rPath.join(__dirname, configs, 'vxpress-lambda.json'),
-      rPath.join(process.cwd(), configs, 'vxpress-lambda.json'),
-      error => {
-        if (error) {
-          console.log('> delete the following file and run the script again:');
-          console.log('copyFile', error.code, error.path);
+      );
+    });
+  }
+});
+
+// dynamic:
+let pathDynamic = 'dynamic';
+rFS.mkdir(rPath.join(process.cwd(), pathDynamic), '755', error => {
+  if (error) {
+    console.log(logWarning);
+    console.log('mkdir', error.code, error.path);
+  } else {
+    // dynamic scripts:
+    let files = [
+      'job-handlers-create.js',
+      'job-handlers-minify.js',
+      'job-handlers-publish.sh',
+      'job-handlers-s3copy.js',
+      'README.md'
+    ];
+    files.map(item => {
+      rFS.copyFile(
+        rPath.join(__dirname, pathDynamic, item),
+        rPath.join(process.cwd(), pathDynamic, item),
+        error => {
+          if (error) {
+            console.log(logWarning);
+            console.log('copyFile', item, error.code, error.path);
+          }
         }
-      }
-    );
+      );
+    });
   }
 });
 
 // handlers:
-let handlers = 'handlers';
-rFS.mkdir(rPath.join(process.cwd(), handlers), '755', error => {
+let pathHandlers = 'handlers';
+rFS.mkdir(rPath.join(process.cwd(), pathHandlers), '755', error => {
   if (error) {
-    console.log('> delete the following directory and run the script again:');
+    console.log(logWarning);
     console.log('mkdir', error.code, error.path);
   } else {
-    // copy example handler file to cwd (custom handlers):
-    rFS.copyFile(
-      rPath.join(__dirname, handlers, 'u-hello-world.js'),
-      rPath.join(process.cwd(), handlers, 'u-hello-world.js'),
-      error => {
-        if (error) {
-          console.log('> delete the following file and run the script again:');
-          console.log('copyFile', error.code, error.path);
+    // custom handlers:
+    let files = [
+      'helloworld.js'
+    ];
+    files.map(item => {
+      rFS.copyFile(
+        rPath.join(__dirname, pathDynamic, item),
+        rPath.join(process.cwd(), pathHandlers, item),
+        error => {
+          if (error) {
+            console.log(logWarning);
+            console.log('copyFile', item, error.code, error.path);
+          }
         }
-      }
-    );
+      );
+    });
   }
 });

@@ -137,7 +137,15 @@
       "description": "Overall application information."
     },
     {
-      "execOrder": 25,
+      "execOrder": 50,
+      "active": true,
+      "method": "get",
+      "path": "/helloworld",
+      "handler": "helloworld",
+      "description": "Test: hello world."
+    },
+    {
+      "execOrder": 99,
       "active": true,
       "method": "use",
       "path": "*",

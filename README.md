@@ -28,7 +28,7 @@ Initialize a new NPM project and then install visual-express and visual-express-
 
 ```sh
 $ npm init
-$ npm install visual-express visual-express-ui
+$ npm install visual-express aws-sdk node-minify
 ```
 
 Create a new server-config.js file with the following contents:
@@ -58,13 +58,14 @@ var rServer = require('./server-config');
 rServer.start();
 ```
 
-Initialize directories for custom configurations and handlers:
+Initialize directories for custom configurations and dynamic handlers:
 
 ```sh
 $ node node_modules/visual-express/vxpress-init.js
 ```
 
-And then execute it:
+All good and ready to start the server!
+Run the following command:
 
 ```sh
 $ node server-start.js

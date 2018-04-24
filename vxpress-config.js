@@ -38,10 +38,10 @@ exports.setAppRoot = path => {
   process.env.vxPathsAppRoot = path;
 };
 
-// set application name (optional):
+// set application name (optional) if not yet set:
 // must be the same name of the configuration file (case-sensitive):
 exports.setAppName = appName => {
-  process.env.vxInfoApp = appName;
+  !process.env.vxInfoApp ? (process.env.vxInfoApp = appName) : false;
 };
 
 /**

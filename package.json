@@ -1,6 +1,6 @@
 {
   "name": "visual-express",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Visual UI for Express",
   "main": "vxpress-config.js",
   "scripts": {
