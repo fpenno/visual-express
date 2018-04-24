@@ -24,11 +24,19 @@ It's an extra option when using a Canary approach is not available due to the la
 
 ### Installation
 
-Initialize a new NPM project and then install visual-express and visual-express-ui:
+Initialize a new NPM project and then install visual-express and aws-sdk.
 
 ```sh
 $ npm init
-$ npm install visual-express aws-sdk node-minify
+$ npm install visual-express aws-sdk --save --save-exact
+```
+
+To be able to publish dynamic handlers, go inside *dynamic* folder and install node_minify.
+Having node-minify in a separate node_modules makes the deployment package a lot smaller because you don't have to include any of these packages in the final product.
+
+```sh
+$ cd dynamic
+$ npm install
 ```
 
 Create a new server-config.js file with the following contents:

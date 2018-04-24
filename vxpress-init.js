@@ -47,6 +47,7 @@ rFS.mkdir(rPath.join(process.cwd(), pathDynamic), '755', error => {
       'job-handlers-minify.js',
       'job-handlers-publish.sh',
       'job-handlers-s3copy.js',
+      'package.json',
       'README.md'
     ];
     files.map(item => {

@@ -1,0 +1,13 @@
+{
+  "name": "dynamic",
+  "version": "1.0.0",
+  "description": "Publish dynamic handlers.",
+  "main": "job-handlers-publish.sh",
+  "scripts": {},
+  "keywords": ["dynamic"],
+  "author": "Felipe Penno <https://www.piscestek.com.au>",
+  "license": "ISC",
+  "dependencies": {
+    "node-minify": "2.4.2"
+  }
+}
