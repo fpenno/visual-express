@@ -1,10 +1,11 @@
 {
   "name": "visual-express",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Visual UI for Express",
   "main": "vxpress-config.js",
   "scripts": {
-    "start": "node vxpress-start.js"
+    "start": "node vxpress-start.js",
+    "dynamic": "./dynamic/job-handlers-publish.sh"
   },
   "author": "Felipe Penno | https://www.piscestek.com.au",
   "license": "MIT",

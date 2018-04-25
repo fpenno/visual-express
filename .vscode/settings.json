@@ -2,7 +2,7 @@
   "workbench.startupEditor": "newUntitledFile",
   "editor.tabSize": 2,
   "editor.detectIndentation": false,
-  "window.zoomLevel": -1,
+  "window.zoomLevel": -2,
   "extensions.ignoreRecommendations": false,
   "prettier.printWidth": 100,
   "prettier.singleQuote": true,

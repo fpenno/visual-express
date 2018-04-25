@@ -20,10 +20,10 @@
   "aws": [
     {
       "s3": {
-        "active": false,
+        "active": true,
         "region": "ap-southeast-2",
-        "s3bucket": "bucket-name",
-        "s3key": "object.key"
+        "s3bucket": "piscestek-vxpress",
+        "s3key": "handlers.json"
       }
     }
   ],
