@@ -23,7 +23,7 @@
         "active": false,
         "region": "ap-southeast-2",
         "s3bucket": "bucket-name",
-        "s3key": "object.key"
+        "s3key": "handlers.json"
       }
     }
   ],

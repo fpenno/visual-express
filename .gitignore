@@ -1,6 +1,5 @@
 node_modules/
 dynamic/handlers.json
-dynamic/reload.flag
 logs/*.log
 logs/*.json
 package-lock.json
