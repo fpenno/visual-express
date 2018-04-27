@@ -2,8 +2,18 @@ var rPath = require('path');
 var rAWS = require('aws-sdk');
 var rS3 = new rAWS.S3();
 //
-var rLogger = require('visual-express/lib/vx-logger');
-var rConfigs = require('visual-express/lib/vx-configs');
+var rLogger = {};
+var rConfigs = {};
+try {
+  // as a node_modules module:
+  rLogger = require('visual-express/lib/vx-logger');
+  rConfigs = require('visual-express/lib/vx-configs');
+} catch (error) {
+  // testing the actual module:
+  console.log(error.code, 'using local mapping for actual module');
+  rLogger = require('../lib/vx-logger');
+  rConfigs = require('../lib/vx-configs');
+}
 //
 var rReload = require('./job-handlers-reload');
 
@@ -34,6 +44,8 @@ rAWS.config.update({ region: configs.aws.s3.region });
 function s3copy(handlers, reloadTag) {
   // set parameters:
   let s3Bucket = configs.aws.s3.s3bucket;
+  // new line to display better on console:
+  console.log('');
 
   // copy dynamic handlers:
   let s3FileKey = configs.aws.s3.s3key;

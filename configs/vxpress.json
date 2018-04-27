@@ -13,6 +13,7 @@
       "appRoot": "/var/local/app",
       "prefix": "",
       "handlers": "/handlers",
+      "handlersCustom": "/custom",
       "fsModeFile": 644,
       "fsModeDir": 755
     }
@@ -21,7 +22,7 @@
     {
       "s3": {
         "active": false,
-        "region": "ap-southeast-2",
+        "region": "ap-region-2",
         "s3bucket": "bucket-name",
         "s3key": "handlers.json"
       }

@@ -18,7 +18,7 @@ rFS.mkdir(rPath.join(process.cwd(), pathConfigs), '755', error => {
     console.log('mkdir', error.code, error.path);
   } else {
     // default config files for single/cluster/lambda:
-    let files = ['vxpress.json', 'vxpress-lambda.json'];
+    let files = ['vxpress.json', 'vxpress-lambda.json', 'vxpress-editor.json'];
     files.map(item => {
       rFS.copyFile(
         rPath.join(__dirname, pathConfigs, item),
@@ -50,7 +50,8 @@ rFS.mkdir(rPath.join(process.cwd(), pathDynamic), '755', error => {
       'job-handlers-s3copy.js',
       'package.json',
       'README.md',
-      'reload.flag'
+      'reload.flag',
+      'yarn.lock'
     ];
     files.map(item => {
       rFS.copyFile(
@@ -67,21 +68,19 @@ rFS.mkdir(rPath.join(process.cwd(), pathDynamic), '755', error => {
   }
 });
 
-// handlers:
-let pathHandlers = 'handlers';
-rFS.mkdir(rPath.join(process.cwd(), pathHandlers), '755', error => {
+// custom handlers:
+let pathCustomHandlers = 'custom';
+rFS.mkdir(rPath.join(process.cwd(), pathCustomHandlers), '755', error => {
   if (error) {
     console.log(logWarning);
     console.log('mkdir', error.code, error.path);
   } else {
     // custom handlers:
-    let files = [
-      'helloworld.js'
-    ];
+    let files = ['helloworld.js'];
     files.map(item => {
       rFS.copyFile(
-        rPath.join(__dirname, pathDynamic, item),
-        rPath.join(process.cwd(), pathHandlers, item),
+        rPath.join(__dirname, pathCustomHandlers, item),
+        rPath.join(process.cwd(), pathCustomHandlers, item),
         error => {
           if (error) {
             console.log(logWarning);
