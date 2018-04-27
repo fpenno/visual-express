@@ -5,6 +5,7 @@ exports.vxNotFound = function vxNotFound(req, res) {
   // add header with wrong path to the response:
   let wrongPath = req.baseUrl;
   // taken from lambda event:
+  // jshint expr:true
   req.apiGateway ? (wrongPath = req.apiGateway.event.path) : null;
   // set header and send:
   res.header('Vx-Wrong-Path', wrongPath);

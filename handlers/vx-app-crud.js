@@ -25,54 +25,65 @@ exports.vxAppCrud = function vxAppCrud(req, res) {
   // -------------------------
   if (action == 'create') {
     switch (target) {
-      case 'application':
+      case 'application': {
         // create new app:
         resJson = db.create(appName);
         break;
-      default:
+      }
+      default: {
         req.vxLog.error(__filename, defaultError);
+      }
     }
   }
 
   // -------------------------
   if (action == 'read') {
     switch (target) {
-      case 'configs':
+      case 'configs': {
         resJson = db.getConfigs(appName);
         break;
-      case 'configs-editor':
+      }
+      case 'configs-editor': {
         resJson = db.getConfigsEditor();
         break;
-      default:
+      }
+      default: {
         req.vxLog.error(__filename, defaultError);
+      }
     }
   }
 
   // -------------------------
   if (action == 'update') {
     switch (target) {
-      case 'configs':
+      case 'configs': {
         resJson = db.setConfigs(appName, data);
         break;
-      case 'configs-editor':
+      }
+      case 'configs-editor': {
         resJson = db.setConfigsEditor(data);
         break;
-      case 'apps':
+      }
+      case 'apps': {
         // update app configs:
         resJson = db.update(appName, body.data);
         break;
-      default:
+      }
+      default: {
         req.vxLog.error(__filename, defaultError);
+      }
     }
   }
 
   // -------------------------
   if (action == 'delete') {
     switch (target) {
-      case 'todo':
+      case 'todo': {
         break;
-      default:
+      }
+      default: {
         req.vxLog.error(__filename, defaultError);
+      }
     }
   }
 

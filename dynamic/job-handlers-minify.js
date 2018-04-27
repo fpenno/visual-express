@@ -1,6 +1,7 @@
 'use strict';
 var rFS = require('fs');
 var rPath = require('path');
+// @ts-ignore
 var rCompressor = require('node-minify');
 
 /**
@@ -33,7 +34,8 @@ function handlersMinify() {
             compressor: 'gcc',
             input: rPath.join(pathBase, pathCustomHandlers, file),
             output: rPath.join(pathBase, pathDynamic, fileMin),
-            callback: function(err, min) {
+            //callback: function(err, min) {
+            callback: function(err) {
               if (err) {
                 console.error('minify', file, err);
               } else {

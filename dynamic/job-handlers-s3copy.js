@@ -1,4 +1,5 @@
 var rPath = require('path');
+// @ts-ignore
 var rAWS = require('aws-sdk');
 var rS3 = new rAWS.S3();
 //
@@ -29,7 +30,9 @@ let reloadFlag = 'reload.flag';
 let basePath = rPath.dirname(__dirname);
 //
 process.env.vxPathsAppRoot = basePath;
+// @ts-ignore
 let log = new rLogger('error', 'vx');
+// @ts-ignore
 let configs = new rConfigs(log, appName).load();
 
 // load handler:

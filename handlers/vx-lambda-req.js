@@ -5,4 +5,5 @@
  */
 exports.vxLambdaReq = function vxLambdaReq(lambdaEvent, lambdaContext) {
   // TODO...
+  console.log(lambdaEvent, lambdaContext);
 };

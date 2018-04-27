@@ -41,6 +41,7 @@ exports.setAppRoot = path => {
 // set application name (optional) if not yet set:
 // must be the same name of the configuration file (case-sensitive):
 exports.setAppName = appName => {
+  // jshint expr:true
   !process.env.vxInfoApp ? (process.env.vxInfoApp = appName) : false;
 };
 

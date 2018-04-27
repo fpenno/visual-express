@@ -14,15 +14,19 @@ exports.vxErrorHandler = function vxErrorHandler(err, req, res, next) {
 
   // handles error according to requested url:
   switch (req.url) {
-    case '/crud':
+    case '/crud': {
       console.log('errors: ' + req.url);
       res.json({
         reason: '...'
       });
       break;
-    default:
+    }
+    default: {
       res.json({
         reason: 'Provided JSON is invalid.'
       });
+    }
   }
+  //
+  next();
 };

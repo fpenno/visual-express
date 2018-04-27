@@ -6,9 +6,9 @@
  */
 exports.vxCors = function vxCors(req, res, next) {
   // https://enable-cors.org/server_expressjs.html
-  let logInfo = `[i] vxCors: { 'method':'${req.method}', 'origin':'${req.headers['origin']}', 'host':'${
-    req.headers['host']
-  }', 'originalUrl':'${req.originalUrl}' }`;
+  // let logInfo = `[i] vxCors: { 'method':'${req.method}', 'origin':'${req.headers['origin']}', 'host':'${
+  //   req.headers['host']
+  // }', 'originalUrl':'${req.originalUrl}' }`;
   //console.info(logInfo);
   //
   res.header('Access-Control-Allow-Origin', '*');

@@ -1,4 +1,5 @@
 'use strict';
+// @ts-ignore
 var rMoment = require('moment');
 
 function reloadTag() {
@@ -13,7 +14,7 @@ function reloadTag() {
   });
   //
   return rMoment().format('LT');
-};
+}
 exports.reloadTag = reloadTag;
 
 // print to stdout with no new line like console.log():
