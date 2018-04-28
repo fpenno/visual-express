@@ -74,16 +74,17 @@ exports.start = async (lambdaEvent = null, lambdaContext = null) => {
     let oServer = new rServer(log, configs, definitions, lambdaEvent, lambdaContext);
     await oServer.init();
 
-    // wait for completion:
+    // server is fully functional:
+    log.debug(__filename, 'server is running...');
+
+    // endlessly unresolved promise to stay in the loop:
+    // lambda functions won't work properly without this:
     let complete = false;
-    await new Promise((resolve) => {
+    await new Promise(resolve => {
       if (complete) {
         resolve({});
       }
     });
-
-    //
-    log.debug(__filename, 'server is running...');
   } catch (error) {
     log.error(__filename, 'start', error);
   }

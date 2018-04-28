@@ -52,7 +52,7 @@
   },
   "httpMethod": "POST",
   "stageVariables": {
-    "vxInfoApp": "vxpress-lambda",
+    "vxInfoApp": "vxpress-local",
     "vxPathsPrefix": "/lambda"
   },
   "path": "/lambda/loopback"
