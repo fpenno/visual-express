@@ -21,4 +21,10 @@ sam local invoke 'VisualExpress' --t sam-template.yaml -e sam-helloworld.json
 22) 
 sam local invoke 'VisualExpress' --t sam-template.yaml -e sam-helloworld.json -d 5858
 ;;
+3) 
+sam local invoke 'VisualExpress' --t sam-template.yaml -e sam-loopback.json
+;;
+33) 
+sam local invoke 'VisualExpress' --t sam-template.yaml -e sam-loopback.json -d 5858
+;;
 esac

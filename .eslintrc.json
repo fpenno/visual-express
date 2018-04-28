@@ -3,6 +3,13 @@
     "es6": true,
     "node": true
   },
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true,
+    "arrowFunctions": true,
+    "classes": true,
+    "spread": true
+  },
   "extends": "eslint:recommended",
   "parserOptions": {
     "sourceType": "module"

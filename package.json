@@ -10,11 +10,11 @@
   "author": "Felipe Penno | https://www.piscestek.com.au",
   "license": "MIT",
   "dependencies": {
+    "@types/node": "8.10.10",
     "aws-sdk": "2.229.1",
     "aws-serverless-express": "3.2.0",
     "compression": "1.7.2",
     "express": "4.16.3",
-    "js-beautify": "1.7.5",
     "json-beautify": "1.0.1",
     "winston": "2.4.2"
   },

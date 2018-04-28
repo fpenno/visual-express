@@ -26,10 +26,10 @@
  */
 
 'use strict';
-var rServer = require('./lib/vx-server');
 var rLogger = require('./lib/vx-logger');
 var rEnvironment = require('./lib/vx-environment');
 var rDefinitions = require('./lib/vx-definitions');
+var rServer = require('./lib/vx-server');
 
 // set root application path (default):
 process.env.vxPathsAppRoot = __dirname;
@@ -49,28 +49,42 @@ exports.setAppName = appName => {
  * start server in single or cluster mode.
  * as lambda its function needs to map vxpress.start.
  */
-exports.start = (lambdaEvent = null, lambdaContext = null) => {
+exports.start = async (lambdaEvent = null, lambdaContext = null) => {
+  // initialize logs:
   let log = new rLogger('silly', 'vx');
   log.verbose(__filename, 'log level', log.level);
   log.verbose(__filename, 'start');
 
-  // sync environment variables and config file:
-  let env = new rEnvironment(log, lambdaEvent);
-  let configs = env.sync();
+  // process requests:
+  try {
+    // merge environment variables and config file:
+    let oEnv = new rEnvironment(log, lambdaEvent);
+    let configs = await oEnv.merge();
 
-  // print server version:
-  log.info(__filename, 'version', configs.info.version);
-  // reset log level:
-  log.level = configs.info.logs;
+    // print server version:
+    log.info(__filename, 'version', configs.info.version);
+    // reset log level:
+    log.level = configs.info.logs;
 
-  // compile definitions:
-  let def = new rDefinitions(log, configs);
-  let definitions = def.compile();
+    // compile definitions:
+    let oDefs = new rDefinitions(log, configs);
+    let definitions = oDefs.compile();
 
-  // initialize server:
-  let server = new rServer(log, configs, definitions, lambdaEvent, lambdaContext);
-  server.init();
+    // initialize server:
+    let oServer = new rServer(log, configs, definitions, lambdaEvent, lambdaContext);
+    await oServer.init();
 
-  //
-  log.debug(__filename, 'running...');
+    // wait for completion:
+    let complete = false;
+    await new Promise((resolve) => {
+      if (complete) {
+        resolve({});
+      }
+    });
+
+    //
+    log.debug(__filename, 'server is running...');
+  } catch (error) {
+    log.error(__filename, 'start', error);
+  }
 };

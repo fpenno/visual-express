@@ -9,10 +9,14 @@ exports.vxLoopback = function vxLoopback(req, res) {
   let event = {};
   let results = {};
 
+  // set body:
+  let body = req.body;
+
   // checks if this is a lambda environment:
   if (process.env.AWS_LAMBDA_FUNCTION_NAME) {
     // set event:
     event = req.apiGateway.event;
+
     // build results:
     results = {
       statusCode: 200,
@@ -21,7 +25,7 @@ exports.vxLoopback = function vxLoopback(req, res) {
         'Content-Type': 'application/json',
         'Accept-Encoding': ''
       },
-      rawBody: event.rawBody,
+      rawBody: body,
       path: event.path,
       paramsPath: event.pathParameters,
       paramsUrl: event.queryStringParameters,
@@ -35,9 +39,10 @@ exports.vxLoopback = function vxLoopback(req, res) {
     // running in single or cluster mode:
     // set event:
     event = req;
+
     // build results:
     results = {
-      rawBody: event.rawBody,
+      rawBody: body,
       path: event.path,
       method: event.method
     };
