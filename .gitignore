@@ -2,6 +2,7 @@ node_modules/
 configs/vxpress-local.json
 dynamic/handlers.json
 dynamic/*.min
+dynamic/package.json
 logs/*.log
 logs/*.json
 package-lock.json

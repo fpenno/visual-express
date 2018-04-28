@@ -17,6 +17,8 @@ try {
 }
 //
 var rReload = require('./job-handlers-reload');
+// handlers:
+var rDynHandlers = null;
 
 // load VX configurations:
 // get app name from arguments (override default):
@@ -28,29 +30,42 @@ if (process.argv.length === 3) {
 let dynamic = 'dynamic';
 let reloadFlag = 'reload.flag';
 let basePath = rPath.dirname(__dirname);
-//
+let configs = {};
 process.env.vxPathsAppRoot = basePath;
+
 // @ts-ignore
 let log = new rLogger('error', 'vx');
-// @ts-ignore
-let configs = new rConfigs(log, appName).load();
 
-// load handler:
-var rDynHandlers = require(rPath.join(basePath, dynamic, configs.aws.s3.s3key));
-// set aws region:
-rAWS.config.update({ region: configs.aws.s3.region });
+/**
+ * initialize configurations:
+ * @param {*} log
+ * @param {*} appName
+ */
+async function init(log, appName) {
+  // @ts-ignore
+  let oConfigs = new rConfigs(log, appName);
+  configs = await oConfigs.load();
+  // load handler:
+  rDynHandlers = require(rPath.join(basePath, dynamic, configs.aws.s3.s3key));
+  //
+  return new Promise(resolve => {
+    resolve({});
+  });
+}
 
 /**
  * create/update s3 object:
  * @param {*} handlers
  */
 function s3copy(handlers, reloadTag) {
-  // set parameters:
-  let s3Bucket = configs.aws.s3.s3bucket;
   // new line to display better on console:
   console.log('');
 
+  // set aws region:
+  rAWS.config.update({ region: configs.aws.s3.region });
   // copy dynamic handlers:
+  // set parameters:
+  let s3Bucket = configs.aws.s3.s3bucket;
   let s3FileKey = configs.aws.s3.s3key;
   let params = { Bucket: s3Bucket, Key: s3FileKey, Body: handlers };
   rS3.putObject(params, (err, data) => {
@@ -76,4 +91,6 @@ function s3copy(handlers, reloadTag) {
 /**
  * run:
  */
-s3copy(JSON.stringify(rDynHandlers), rReload.reloadTag());
+init(log, appName).then(result => {
+  s3copy(JSON.stringify(rDynHandlers), rReload.reloadTag());
+});

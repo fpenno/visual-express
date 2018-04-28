@@ -48,9 +48,10 @@ rFS.mkdir(rPath.join(process.cwd(), pathDynamic), '755', error => {
       'job-handlers-publish.sh',
       'job-handlers-reload.sh',
       'job-handlers-s3copy.js',
-      'package.json',
+      'package.json.src',
       'README.md',
       'reload.flag',
+      'yarn-install.sh',
       'yarn.lock'
     ];
     files.map(item => {
