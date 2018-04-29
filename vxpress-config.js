@@ -51,31 +51,34 @@ exports.setAppName = appName => {
  */
 exports.start = async (lambdaEvent = null, lambdaContext = null) => {
   // initialize logs:
-  let log = new rLogger('silly', 'vx');
-  log.verbose(__filename, 'log level', log.level);
-  log.verbose(__filename, 'start');
+  let oLog = new rLogger('silly', 'vx');
+  oLog.verbose(__filename, 'log level', oLog.level);
+  oLog.verbose(__filename, 'start');
 
   // process requests:
   try {
     // merge environment variables and config file:
-    let oEnv = new rEnvironment(log, lambdaEvent);
-    let configs = await oEnv.merge();
+    let oEnv = new rEnvironment(oLog, lambdaEvent);
+    let configs = await oEnv.merge().catch(error => {
+      oLog.error(__filename, 'start:merge', error);
+      throw error;
+    });
 
     // print server version:
-    log.info(__filename, 'version', configs.info.version);
+    oLog.info(__filename, 'version', configs.info.version);
     // reset log level:
-    log.level = configs.info.logs;
+    oLog.level = configs.info.logs;
 
     // compile definitions:
-    let oDefs = new rDefinitions(log, configs);
+    let oDefs = new rDefinitions(oLog, configs);
     let definitions = oDefs.compile();
 
     // initialize server:
-    let oServer = new rServer(log, configs, definitions, lambdaEvent, lambdaContext);
-    await oServer.init();
+    let oServer = new rServer(oLog, configs, definitions, lambdaEvent, lambdaContext);
+    oServer.init();
 
     // server is fully functional:
-    log.debug(__filename, 'server is running...');
+    oLog.debug(__filename, 'server is running...');
 
     // endlessly unresolved promise to stay in the loop:
     // lambda functions won't work properly without this:
@@ -86,6 +89,6 @@ exports.start = async (lambdaEvent = null, lambdaContext = null) => {
       }
     });
   } catch (error) {
-    log.error(__filename, 'start', error);
+    oLog.error(__filename, 'start', error);
   }
 };

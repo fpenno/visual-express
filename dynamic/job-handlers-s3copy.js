@@ -34,23 +34,30 @@ let configs = {};
 process.env.vxPathsAppRoot = basePath;
 
 // @ts-ignore
-let log = new rLogger('error', 'vx');
+let oLog = new rLogger('error', 'vx');
 
 /**
  * initialize configurations:
- * @param {*} log
+ * @param {*} oLog
  * @param {*} appName
  */
-async function init(log, appName) {
-  // @ts-ignore
-  let oConfigs = new rConfigs(log, appName);
-  configs = await oConfigs.load();
-  // load handler:
-  rDynHandlers = require(rPath.join(basePath, dynamic, configs.aws.s3.s3key));
-  //
-  return new Promise(resolve => {
-    resolve({});
-  });
+async function init(oLog, appName) {
+  try {
+    // @ts-ignore
+    let oConfigs = new rConfigs(oLog, appName);
+    configs = await oConfigs.load().catch(error => {
+      oLog.error(__filename, 'init', error);
+      throw error;
+    });
+    // load handler:
+    rDynHandlers = require(rPath.join(basePath, dynamic, configs.aws.s3.s3key));
+    //
+    return new Promise(resolve => {
+      resolve({});
+    });
+  } catch (error) {
+    oLog.error(__filename, 'init', error);
+  }
 }
 
 /**
@@ -68,18 +75,18 @@ function s3copy(handlers, reloadTag) {
   let s3Bucket = configs.aws.s3.s3bucket;
   let s3FileKey = configs.aws.s3.s3key;
   let params = { Bucket: s3Bucket, Key: s3FileKey, Body: handlers };
-  rS3.putObject(params, (err, data) => {
-    if (err) {
-      console.error('s3copy', s3FileKey, err);
+  rS3.putObject(params, (error, data) => {
+    if (error) {
+      console.error('s3copy', s3FileKey, error);
     } else {
       console.log('s3copy', s3FileKey, 'ETag', data.ETag);
       //
       // copy reload flag:
       s3FileKey = reloadFlag;
       params = { Bucket: s3Bucket, Key: s3FileKey, Body: reloadTag };
-      rS3.putObject(params, (err, data) => {
-        if (err) {
-          console.error('s3copy', s3FileKey, err);
+      rS3.putObject(params, (error, data) => {
+        if (error) {
+          console.error('s3copy', s3FileKey, error);
         } else {
           console.log('s3copy', s3FileKey, 'ETag', data.ETag);
         }
@@ -91,6 +98,6 @@ function s3copy(handlers, reloadTag) {
 /**
  * run:
  */
-init(log, appName).then(result => {
+init(oLog, appName).then(result => {
   s3copy(JSON.stringify(rDynHandlers), rReload.reloadTag());
 });

@@ -1,5 +1,5 @@
 {
-  "body": "{\"test\":\"body\"}",
+  "body": null,
   "resource": "/{proxy+}",
   "requestContext": {
     "resourceId": "123456",

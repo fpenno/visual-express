@@ -34,10 +34,9 @@ function handlersMinify() {
             compressor: 'gcc',
             input: rPath.join(pathBase, pathCustomHandlers, file),
             output: rPath.join(pathBase, pathDynamic, fileMin),
-            //callback: function(err, min) {
-            callback: function(err) {
-              if (err) {
-                console.error('minify', file, err);
+            callback: function(error) {
+              if (error) {
+                console.error('minify', file, error);
               } else {
                 console.log('minified', file, fileMin);
               }
