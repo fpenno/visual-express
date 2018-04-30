@@ -1,11 +1,12 @@
 {
   "name": "visual-express",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Visual UI for Express",
   "main": "vxpress-config.js",
   "scripts": {
     "start": "node vxpress-start.js",
-    "dynamic": "./dynamic/job-handlers-publish.sh"
+    "dynamic": "./dynamic/job-handlers-publish.sh",
+    "reload-flag": "node dynamic/job-handlers-reload.js > dynamic/reload.flag"
   },
   "author": "Felipe Penno | https://www.piscestek.com.au",
   "license": "MIT",
@@ -16,22 +17,12 @@
     "compression": "1.7.2",
     "express": "4.16.3",
     "json-beautify": "1.0.1",
+    "moment": "2.22.1",
     "winston": "2.4.2"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/fpenno/visual-express.git"
   },
-  "keywords": [
-    "visual",
-    "express",
-    "listener",
-    "router",
-    "handler",
-    "api",
-    "rest",
-    "restful",
-    "aws",
-    "lambda"
-  ]
+  "keywords": ["visual", "express", "listener", "router", "handler", "api", "rest", "restful", "aws", "lambda"]
 }

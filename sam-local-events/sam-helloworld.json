@@ -47,12 +47,12 @@
     "Accept-Encoding": "gzip, deflate, sdch"
   },
   "pathParameters": {
-    "proxy": "lambda/health"
+    "proxy": "lambda/helloworld"
   },
   "httpMethod": "GET",
   "stageVariables": {
-    "vxInfoApp": "vxpress-local",
+    "vxInfoApp": "vxpress-lambda",
     "vxPathsPrefix": "/lambda"
   },
-  "path": "/lambda/health"
+  "path": "/lambda/helloworld"
 }

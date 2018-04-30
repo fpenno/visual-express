@@ -14,56 +14,19 @@ With ease you can set your application to run in 3 different modes:
 ### Zero Downtime
 
 Due to its architecture, VX aims to deliver functionalities to allow zero downtime migrations.
-The most important feature to be released, the auto-reload, will be able to accomplish that.
+The most important feature is the auto-reload, where routes can be created or changed on the fly during runtime.
 
-As new routes can be created on the fly to run any handler, temporary routes can be created to guarantee the integrity of new handlers running in a new environment.
+As an example, temporary routes can be created to test new handlers, and once these handlers are tested they can be reassigned to permanent routes.
 
-After that, the new handler can be replaced by a permanent route, where the application will auto-reload only that route to start using the newly assigned handler.
-
-It's an extra option when using a Canary approach is not available due to the lack of additional environments.
+It's a good approach to guarantee the integrity of new handlers running in a new environment for the first time, where they can even run in the same production environment (with temporary routes) without affecting the whole system.
 
 ### Installation
 
-Initialize a new NPM project and then install visual-express and aws-sdk.
+Initialize a new NPM project and then install visual-express and aws-sdk:
 
 ```sh
 $ npm init
 $ npm install visual-express aws-sdk --save --save-exact
-```
-
-To be able to publish dynamic handlers, go inside *dynamic* folder and install node_minify.
-Having node-minify in a separate node_modules makes the deployment package a lot smaller because you don't have to include any of these packages in the final product.
-
-```sh
-$ cd dynamic
-$ npm install
-```
-
-Create a new server-config.js file with the following contents:
-
-```javascript
-'use strict';
-var rVx = require('visual-express');
-
-// required if using custom config files and handlers:
-rVx.setAppRoot(__dirname);
-
-// set an application name to get configs from:
-// can also be set via environment variable (vxInfoApp):
-rVx.setAppName('vxpress');
-
-// ready to be started:
-exports.start = rVx.start;
-```
-
-Create another new server-start.js file with the following contents:
-
-```javascript
-'use strict';
-var rServer = require('./server-config');
-
-// start server:
-rServer.start();
 ```
 
 Initialize directories for custom configurations and dynamic handlers:
@@ -72,7 +35,17 @@ Initialize directories for custom configurations and dynamic handlers:
 $ node node_modules/visual-express/vxpress-init.js
 ```
 
-All good and ready to start the server!
+To be able to publish dynamic handlers, go inside *dynamic* folder and initialize it running:
+
+```sh
+$ cd dynamic
+$ yarn-install.sh
+```
+
+Note: the reason dynamic has its own node_modules is to avoid having node-minify and a bunch of related packages as part of the main deployed product, meaning almost 20 megabytes bigger.
+
+
+All set and ready to go, let's start the server!
 Run the following command:
 
 ```sh

@@ -39,6 +39,12 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "Initialize",
+      "program": "${workspaceFolder}/vxpress-init.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "VisualExpress",
       "program": "${workspaceFolder}/vxpress-start.js",
       "env": {
