@@ -1,0 +1,11 @@
+AWSTemplateFormatVersion : '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Description: Visual Express for Lambda
+Resources:
+  VisualExpress:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: server-config.start
+      Runtime: nodejs8.10
+      Timeout: 30

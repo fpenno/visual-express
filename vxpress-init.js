@@ -13,12 +13,12 @@ let fileTree = {
   root: {
     from: '/',
     to: '/',
-    files: ['sam-local.sh', 'sam-local.yaml']
+    files: ['sam-local.sh']
   },
   template: {
     from: '/template',
     to: '/',
-    files: ['server-config.js', 'server-start.js']
+    files: ['sam-local.yaml', 'server-config.js', 'server-start.js']
   },
   configs: {
     from: '/configs',
