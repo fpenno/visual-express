@@ -5,6 +5,6 @@
 
 # run this script to create a copy from .src and then run yarn install for this sub-package.
 rm -rf node_modules
-cp package.json.src package.json
+cp package.src package.json
 yarn install
 rm package.json

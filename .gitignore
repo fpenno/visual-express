@@ -7,4 +7,3 @@ dynamic/package.json
 dynamic/*.min
 logs/**
 !logs/*.md
-**/*.*.*

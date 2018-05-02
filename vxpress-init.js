@@ -39,7 +39,7 @@ let fileTree = {
       'job-handlers-publish.sh',
       'job-handlers-reload.js',
       'job-handlers-s3copy.js',
-      'package.json.src',
+      'package.src',
       'README.md',
       'reload.flag',
       'yarn-install.sh',
