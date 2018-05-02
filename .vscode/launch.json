@@ -34,7 +34,9 @@
       "request": "launch",
       "name": "HandlersS3Copy",
       "program": "${workspaceFolder}/dynamic/job-handlers-s3copy.js",
-      "args": ["vxpress-local"]
+      "args": ["vxpress-local"],
+      "console": "internalConsole",
+      // "outputCapture": "std"
     },
     {
       "type": "node",
@@ -49,6 +51,7 @@
       "program": "${workspaceFolder}/vxpress-start.js",
       "env": {
         "vxInfoApp": "vxpress-local",
+        "vxInfoConfig": "remote",
         "vxPathsPrefix": "/lambda"
       },
       "console": "internalConsole",

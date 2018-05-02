@@ -45,6 +45,12 @@ exports.setAppName = appName => {
   !process.env.vxInfoApp ? (process.env.vxInfoApp = appName) : false;
 };
 
+// set from where the app configuration will be read, local or remote:
+exports.setAppConfig = appConfig => {
+  // jshint expr:true
+  !process.env.vxInfoConfig ? (process.env.vxInfoConfig = appConfig) : false;
+};
+
 /**
  * start server in single or cluster mode.
  * as lambda its function needs to map vxpress.start.
