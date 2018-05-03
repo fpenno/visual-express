@@ -1,6 +1,6 @@
 {
   "name": "visual-express",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "description": "Visual UI for Express",
   "main": "vxpress-config.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "@types/node": "8.10.10",
-    "aws-sdk": "2.229.1",
+    "aws-sdk": "2.231.1",
     "aws-serverless-express": "3.2.0",
     "compression": "1.7.2",
     "express": "4.16.3",
@@ -24,5 +24,16 @@
     "type": "git",
     "url": "https://github.com/fpenno/visual-express.git"
   },
-  "keywords": ["visual", "express", "listener", "router", "handler", "api", "rest", "restful", "aws", "lambda"]
+  "keywords": [
+    "visual",
+    "express",
+    "listener",
+    "router",
+    "handler",
+    "api",
+    "rest",
+    "restful",
+    "aws",
+    "lambda"
+  ]
 }

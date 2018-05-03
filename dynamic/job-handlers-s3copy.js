@@ -104,7 +104,7 @@ async function s3copy(handlers, reloadTag) {
 /**
  * read S3 bucket if required by configuration:
  */
-function putS3(fileKey, data) {
+async function putS3(fileKey, data) {
   oLog.verbose(__filename, 'putS3');
 
   try {
