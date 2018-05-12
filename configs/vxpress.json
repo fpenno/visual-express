@@ -45,9 +45,9 @@
       "corsDomains": "",
       "corsProtocols": ["get", "post", "options"],
       "description": "Forwarded from load balancer, port 443. Not required with AWS certificates.",
-      "certificatePath": "/tls/certificate.pem",
-      "certificatekey": "abc123",
-      "certificatePassPhrase": "xyz*987"
+      "sslCertificate": "/ssl/certificate.pem",
+      "sslPrivateKey": "/ssl/private.rsa",
+      "sslPassPhrase": null
     }
   ],
   "routes": [

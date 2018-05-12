@@ -1,6 +1,6 @@
 {
   "name": "visual-express",
-  "version": "0.3.12",
+  "version": "0.3.13",
   "description": "Visual UI for Express",
   "main": "vxpress-config.js",
   "scripts": {
@@ -27,6 +27,7 @@
   "keywords": [
     "visual",
     "express",
+    "dynamic",
     "listener",
     "router",
     "handler",

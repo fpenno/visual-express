@@ -58,9 +58,7 @@ async function init(oLog, appName) {
     // load handler:
     rDynHandlers = require(pathDynHandlers);
     //
-    return new Promise(resolve => {
-      resolve({});
-    });
+    return Promise.resolve();
   } catch (error) {
     oLog.error(__filename, 'init', error);
   }
@@ -78,7 +76,9 @@ async function s3copy(handlers, reloadTag) {
 
   try {
     // set aws region:
-    rAWS.config.update({ region: configs.aws.s3.region });
+    rAWS.config.update({
+      region: configs.aws.s3.region
+    });
     let result = null;
     // copy dynamic handlers:
     result = await putS3(configs.aws.s3.s3key, handlers).catch(error => {
@@ -110,11 +110,17 @@ async function putS3(fileKey, data) {
   try {
     if (configs.aws.s3.active) {
       // set aws region:
-      rAWS.config.update({ region: configs.aws.s3.region });
+      rAWS.config.update({
+        region: configs.aws.s3.region
+      });
       // bucket info:
       let s3Bucket = configs.aws.s3.s3bucket;
       let s3FileKey = fileKey;
-      let s3Params = { Bucket: s3Bucket, Key: s3FileKey, Body: data };
+      let s3Params = {
+        Bucket: s3Bucket,
+        Key: s3FileKey,
+        Body: data
+      };
 
       // get object and parse the JSON:
       return rS3.putObject(s3Params).promise();
