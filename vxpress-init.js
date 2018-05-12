@@ -25,6 +25,11 @@ let fileTree = {
     to: '/configs',
     files: ['vxpress-editor.json', 'vxpress-lambda.json', 'vxpress.json']
   },
+  ssl: {
+    from: '/ssl',
+    to: '/ssl',
+    files: ['openssl.sh', 'certificate.p12', 'certificate.pem', 'private.rsa']
+  },
   custom: {
     from: '/custom',
     to: '/custom',
