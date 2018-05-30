@@ -1,6 +1,6 @@
 {
   "name": "visual-express",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "description": "Visual UI for Express",
   "main": "vxpress-config.js",
   "scripts": {
@@ -11,8 +11,8 @@
   "author": "Felipe Penno | https://www.piscestek.com.au",
   "license": "MIT",
   "dependencies": {
-    "@types/node": "8.10.10",
-    "aws-sdk": "2.231.1",
+    "@types/node": "10.1.4",
+    "aws-sdk": "2.248.1",
     "aws-serverless-express": "3.2.0",
     "compression": "1.7.2",
     "express": "4.16.3",

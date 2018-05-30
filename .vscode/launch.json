@@ -52,7 +52,7 @@
       "env": {
         "vxInfoApp": "vxpress-local",
         "vxInfoConfig": "remote",
-        "vxPathsPrefix": "/lambda"
+        "vxPathsPrefix": "/dev"
       },
       "console": "internalConsole",
       "outputCapture": "std"
